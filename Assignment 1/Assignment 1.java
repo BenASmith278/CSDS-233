@@ -5,7 +5,7 @@ class FibSeq {
 
     public static int fibIter(int n) {
         if (n <= 0) {
-            return 0;
+            throw new RuntimeException("Cannot find Fibonnaci numbers below 1.");
         }
 
         int prev = 1;
@@ -19,5 +19,15 @@ class FibSeq {
         }
         
         return cur;
+    }
+
+    public static int fibRecur(int n) {
+        if (n <= 0) {
+            throw new RuntimeException("Cannot find Fibonnaci numbers below 1.");
+        } else if (n == 1 || n == 2) {
+            return 1;
+        } else {
+            return fibRecur(n-1) + fibRecur(n-2);
+        }
     }
 }
