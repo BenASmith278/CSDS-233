@@ -12,11 +12,11 @@ class FibSeq {
             throw new RuntimeException("Cannot find Fibonnaci numbers below 1.");
         }
 
-        int prev = 1;
+        int prev = 0;
         int cur = 1;
         int temp;
 
-        for (int i=0; i<n; i++) {
+        for (int i=1; i<n; i++) {
             temp = cur;
             cur = prev + cur;
             prev = temp;
