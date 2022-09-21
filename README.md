@@ -9,7 +9,11 @@
 2. Based on the program you created, further develop the program that adds each Fibonacci number(starting from 0, 1) to a list (an array), and can perform remove, ifContains, grab, and numItems operations. (35 pts) 
  
  ● add(int item): add a number to the list (allow to add duplicates)
+ 
  ● remove(int item): remove the item (if exists) from the list
+ 
  ● ifContains(int item): check if the item exists in the list
+ 
  ● grab(): random draw a number from the list without removing
+ 
  ● numItems(): prints out the number of unique items in the list (without duplicates)
