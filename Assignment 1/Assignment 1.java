@@ -1,6 +1,12 @@
 class FibSeq {
+    public static int[] arr;
+
     public static void main(String[] Args) {
         System.out.println(fibIter(10));
+        FiboArray.fillArray(10);
+        for (int n : arr) {
+            System.out.println(n);
+        }
     }
 
     private static int fibIter(int n) {
@@ -40,13 +46,27 @@ class FibSeq {
         }
     }
 
-    private static void fillArray(int n) {
-        int[] arr = new int[n];
-        int tail = 0;
+    class FiboArray {
+        private static int size = 0;
 
-        while(tail < n) {
-            
-            tail++;
+        public static void fillArray(int n) {
+            arr = new int[n];
+            size = n;
+
+            for (int i=0;i<n;i++) {
+                arr[i] = fibIter(i+1);
+            }
+        }
+
+        public static void add(int n) {
+            int[] tempArr = new int[size+1];
+
+            for (int i=0;i<size;i++) {
+                tempArr[i] = arr[i];
+            }
+
+            tempArr[++size] = n;
+            arr = tempArr;
         }
     }
 }
