@@ -79,5 +79,11 @@ class FibSeq {
 
             return -1;
         }
+
+        public static int grab() {
+            int rand = (int) Math.random() * (size + 1);
+            
+            return arr[rand];
+        }
     }
 }
