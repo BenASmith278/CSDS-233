@@ -4,6 +4,10 @@ class FibSeq {
     }
 
     public static int fibIter(int n) {
+        /* Iterative Method
+        Complexity: O(n) */
+
+        // verify input is valid
         if (n <= 0) {
             throw new RuntimeException("Cannot find Fibonnaci numbers below 1.");
         }
@@ -22,8 +26,13 @@ class FibSeq {
     }
 
     public static int fibRecur(int n) {
+        /* Recursive Method
+        Complexity: O(2^n) */ 
+
+        // verify input is valid
         if (n <= 0) {
             throw new RuntimeException("Cannot find Fibonnaci numbers below 1.");
+        // base cases
         } else if (n == 1 || n == 2) {
             return 1;
         } else {
