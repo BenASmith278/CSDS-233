@@ -4,6 +4,7 @@ class FibSeq {
     public static void main(String[] Args) {
         System.out.println(fibIter(10));
         FiboArray.fillArray(10);
+        FiboArray.add(69);
         for (int n : arr) {
             System.out.println(n);
         }
@@ -65,7 +66,7 @@ class FibSeq {
                 tempArr[i] = arr[i];
             }
 
-            tempArr[++size] = n;
+            tempArr[size++] = n;
             arr = tempArr;
         }
     }
