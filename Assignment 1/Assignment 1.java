@@ -1,6 +1,6 @@
 class FibSeq {
     public static void main(String[] Args) {
-        System.out.println(fibIter(4));
+        System.out.println(fibIter(10));
     }
 
     private static int fibIter(int n) {
@@ -37,6 +37,16 @@ class FibSeq {
             return 1;
         } else {
             return fibRecur(n-1) + fibRecur(n-2);
+        }
+    }
+
+    private static void fillArray(int n) {
+        int[] arr = new int[n];
+        int tail = 0;
+
+        while(tail < n) {
+            
+            tail++;
         }
     }
 }
