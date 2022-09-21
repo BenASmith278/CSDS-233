@@ -3,7 +3,7 @@ class FibSeq {
         System.out.println(fibIter(4));
     }
 
-    public static int fibIter(int n) {
+    private static int fibIter(int n) {
         /* Iterative Method
         Complexity: O(n) */
 
@@ -25,7 +25,7 @@ class FibSeq {
         return cur;
     }
 
-    public static int fibRecur(int n) {
+    private static int fibRecur(int n) {
         /* Recursive Method
         Complexity: O(2^n) */ 
 
