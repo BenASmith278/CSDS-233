@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 class FibSeq {
     public static int[] arr;
 
