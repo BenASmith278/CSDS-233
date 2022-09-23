@@ -1,16 +1,7 @@
 import java.lang.Math;
 
 class FibSeq {
-    public static int[] arr;
-
-    public static void main(String[] Args) {
-        System.out.println(fibIter(10));
-        FiboArray.fillArray(10);
-        FiboArray.add(69);
-        for (int n : arr) {
-            System.out.println(n);
-        }
-    }
+    public int[] arr;
 
     private static int fibIter(int n) {
         /* Iterative Method
@@ -50,10 +41,10 @@ class FibSeq {
     }
 
     class FiboArray {
-        private static int size = 0;
-        private static int maxSize = 10;
+        private int size = 0;
+        private int maxSize = 10;
 
-        public static void makeArray() {
+        public void makeArray() {
             arr = new int[10];
             size = 5;
 
@@ -63,7 +54,7 @@ class FibSeq {
             arr[0] = 0;
         }
 
-        public static boolean isFull() {
+        public boolean isFull() {
             if (size == maxSize) {
                 return true;
             }
@@ -71,7 +62,7 @@ class FibSeq {
             return false;
         }
 
-        public static void resize() {
+        public void resize() {
             int[] tempArr = new int[maxSize+5];
 
             for (int i=0;i<maxSize;i++) {
@@ -83,7 +74,7 @@ class FibSeq {
             arr = tempArr;
         }
 
-        public static void add(int n) {
+        public void add(int n) {
             if (isFull()) {
                 resize();
             }
@@ -91,19 +82,19 @@ class FibSeq {
             arr[++size] = n;
         }
 
-        public static void add(int n, int index) {
+        public void add(int n, int index) {
             if (index < 0 || index >= maxSize) {
                 throw new RuntimeException("Invalid index.");
             }
 
             arr[index] = n;
-            
+
             if(index > size) {
                 size = index;
             }
         }
 
-        public static int ifContains(int n) {
+        public int ifContains(int n) {
             for (int i=0;i<size;i++) {
                 if (arr[i] == n) {
                     return i;
@@ -113,7 +104,7 @@ class FibSeq {
             return -1;
         }
 
-        public static boolean remove(int n) {
+        public boolean remove(int n) {
             int contains = ifContains(n);
 
             if (contains != -1) {
@@ -124,16 +115,24 @@ class FibSeq {
             return false;
         }
 
-        public static int grab() {
+        public int grab() {
             double rand = Math.random() * (maxSize + 1);
             
             return arr[(int)rand];
         }
 
-        public static void print() {
+        public void print() {
             for(int n : arr) {
-                System.out.println(n);
+                System.out.print(n + " ");
             }
         }
+    }
+
+    public static void main(String[] Args) {
+        System.out.println(fibIter(10));
+        FiboArray fibArr = new FibSeq().new FiboArray();
+
+        fibArr.makeArray();
+        fibArr.print();
     }
 }
