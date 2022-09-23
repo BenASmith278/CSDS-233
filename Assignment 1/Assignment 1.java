@@ -41,9 +41,12 @@ class FibSeq {
     }
 
     class FiboArray {
+        // size is position of last non-zero number in array.
         private int size = 0;
+        // maxSize is length of array.
         private int maxSize = 0;
 
+        // makes the initial array using fibIter.
         public void makeArray() {
             arr = new int[10];
             size = 5;
@@ -54,6 +57,7 @@ class FibSeq {
             }
         }
 
+        // if size == maxSize, there is a number at the end of the array.
         public boolean isFull() {
             if (size == maxSize) {
                 return true;
@@ -62,6 +66,7 @@ class FibSeq {
             return false;
         }
 
+        // transfers arr into a new array that is 5 larger.
         public void resize() {
             int[] tempArr = new int[maxSize+5];
 
@@ -74,7 +79,9 @@ class FibSeq {
             arr = tempArr;
         }
 
+        // adds a number to the end of the array.
         public void add(int n) {
+            // must expand array if full.
             if (isFull()) {
                 resize();
             }
@@ -82,6 +89,7 @@ class FibSeq {
             arr[size++] = n;
         }
 
+        // adds a number to the specified index.
         public void add(int n, int index) {
             if (index < 0 || index >= maxSize) {
                 throw new RuntimeException("Invalid index.");
@@ -94,6 +102,7 @@ class FibSeq {
             }
         }
 
+        // returns index of specified int, -1 if not there.
         public int ifContains(int n) {
             for (int i=0;i<size;i++) {
                 if (arr[i] == n) {
@@ -104,12 +113,14 @@ class FibSeq {
             return -1;
         }
 
+        // removes first instance of n.
         public boolean remove(int n) {
             int contains = ifContains(n);
 
             if (contains != -1) {
                 arr[contains] = 0;
                 
+                // make sure size is set correctly after removing (could remove number not on end).
                 int i = maxSize - 1;
                 while (arr[i] == 0) {
                     size = i;
@@ -122,12 +133,14 @@ class FibSeq {
             return false;
         }
 
+        // returns arr[i] for 0<=i<maxSize
         public int grab() {
             double rand = Math.random() * (maxSize);
             
             return arr[(int)rand];
         }
 
+        // prints out array in format 0, 1, 1, 2, 3,... , 0
         public void print() {
             for (int i=0;i<maxSize;i++) {
                 if (i == maxSize - 1)  {
