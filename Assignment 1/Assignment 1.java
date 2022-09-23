@@ -113,6 +113,17 @@ class FibSeq {
             return -1;
         }
 
+        public static boolean remove(int n) {
+            int contains = ifContains(n);
+
+            if (contains != -1) {
+                arr[contains] = 0;
+                return true;
+            }
+            
+            return false;
+        }
+
         public static int grab() {
             double rand = Math.random() * (size + 1);
             
