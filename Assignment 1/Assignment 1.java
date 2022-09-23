@@ -145,5 +145,34 @@ class FibSeq {
 
         fibArr.makeArray();
         fibArr.print();
+        System.out.println(fibArr.size);
+        fibArr.add(12);
+        System.out.println(fibArr.size);
+        fibArr.add(15, 9);
+        fibArr.print();
+        System.out.println(fibArr.size);
+        System.out.println(fibArr.remove(12));
+        fibArr.print();
+        System.out.println(fibArr.size);
+        fibArr.add(5, 5);
+        System.out.println(fibArr.remove(15));
+        System.out.println(fibArr.size);
+        System.out.println(fibArr.grab());
+        System.out.println(fibArr.grab());
+        fibArr.print();
+        System.out.println(fibArr.ifContains(3));
+        System.out.println(fibArr.ifContains(0));
+        System.out.println(fibArr.ifContains(14));
+        System.out.println(fibArr.isFull());
+        fibArr.add(15, 9);
+        System.out.println(fibArr.isFull());
+        fibArr.add(16);
+        fibArr.print();
+        System.out.println(fibArr.isFull());
+        System.out.println(fibArr.size);
+        System.out.println(fibArr.maxSize);
+        fibArr.remove(16);
+        System.out.println(fibArr.size);
+        System.out.println(fibArr.maxSize);
     }
 }
