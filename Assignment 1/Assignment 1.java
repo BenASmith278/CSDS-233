@@ -125,7 +125,7 @@ class FibSeq {
         }
 
         public static int grab() {
-            double rand = Math.random() * (size + 1);
+            double rand = Math.random() * (maxSize + 1);
             
             return arr[(int)rand];
         }
