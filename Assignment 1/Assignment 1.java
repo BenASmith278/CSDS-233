@@ -63,15 +63,44 @@ class FibSeq {
             arr[0] = 0;
         }
 
-        public static void add(int n) {
-            int[] tempArr = new int[size+1];
-
-            for (int i=0;i<size;i++) {
-                tempArr[i] = arr[i];
+        public static boolean isFull() {
+            if (size == maxSize) {
+                return true;
             }
 
-            tempArr[size++] = n;
+            return false;
+        }
+
+        public static void resize() {
+            int[] tempArr = new int[maxSize+5];
+
+            for (int i=0;i<maxSize;i++) {
+                tempArr[i] = arr[i];
+
+            }
+
+            maxSize += 5;
             arr = tempArr;
+        }
+
+        public static void add(int n) {
+            if (isFull()) {
+                resize();
+            }
+
+            arr[++size] = n;
+        }
+
+        public static void add(int n, int index) {
+            if (index < 0 || index >= maxSize) {
+                throw new RuntimeException("Invalid index.");
+            }
+
+            arr[index] = n;
+            
+            if(index > size) {
+                size = index;
+            }
         }
 
         public static int ifContains(int n) {
