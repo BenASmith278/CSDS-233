@@ -42,16 +42,16 @@ class FibSeq {
 
     class FiboArray {
         private int size = 0;
-        private int maxSize = 10;
+        private int maxSize = 0;
 
         public void makeArray() {
             arr = new int[10];
             size = 5;
+            maxSize = 10;
 
             for (int i=1;i<5;i++) {
-                arr[i] = fibIter(i+1);
+                arr[i] = fibIter(i);
             }
-            arr[0] = 0;
         }
 
         public boolean isFull() {
@@ -79,7 +79,7 @@ class FibSeq {
                 resize();
             }
 
-            arr[++size] = n;
+            arr[size++] = n;
         }
 
         public void add(int n, int index) {
@@ -90,7 +90,7 @@ class FibSeq {
             arr[index] = n;
 
             if(index > size) {
-                size = index;
+                size = index + 1;
             }
         }
 
@@ -109,6 +109,13 @@ class FibSeq {
 
             if (contains != -1) {
                 arr[contains] = 0;
+                
+                int i = maxSize - 1;
+                while (arr[i] == 0) {
+                    size = i;
+                    i--;
+                }
+
                 return true;
             }
             
@@ -116,19 +123,23 @@ class FibSeq {
         }
 
         public int grab() {
-            double rand = Math.random() * (maxSize + 1);
+            double rand = Math.random() * (maxSize);
             
             return arr[(int)rand];
         }
 
         public void print() {
-            for(int n : arr) {
-                System.out.print(n + " ");
+            for (int i=0;i<maxSize;i++) {
+                if (i == maxSize - 1)  {
+                    System.out.println(arr[i]);
+                } else {
+                    System.out.print(arr[i] + ", ");
+                }
             }
         }
     }
 
-    public static void main(String[] Args) {
+    public static void main(String[] args) {
         System.out.println(fibIter(10));
         FiboArray fibArr = new FibSeq().new FiboArray();
 
