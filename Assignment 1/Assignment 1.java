@@ -129,5 +129,11 @@ class FibSeq {
             
             return arr[(int)rand];
         }
+
+        public static void print() {
+            for(int n : arr) {
+                System.out.println(n);
+            }
+        }
     }
 }
