@@ -51,14 +51,16 @@ class FibSeq {
 
     class FiboArray {
         private static int size = 0;
+        private static int maxSize = 10;
 
-        public static void fillArray(int n) {
-            arr = new int[n];
-            size = n;
+        public static void makeArray() {
+            arr = new int[10];
+            size = 5;
 
-            for (int i=0;i<n;i++) {
+            for (int i=1;i<5;i++) {
                 arr[i] = fibIter(i+1);
             }
+            arr[0] = 0;
         }
 
         public static void add(int n) {
