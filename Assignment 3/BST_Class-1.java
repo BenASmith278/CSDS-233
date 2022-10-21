@@ -22,8 +22,20 @@ class BST_Class {
 
     }
 
+    // finds minimum value in tree starting from root
     int minValue(Node root)  {
-        return 0;
+        Node trav = root;
+
+        // find the left-most node of the tree (the smallest)
+        while (trav.left != null) {
+            trav = trav.left;
+        }
+
+        return trav.key;
+    }
+
+    void getMinValue() {
+        System.out.println(minValue(root));
     }
 
     // insert a node in BST
@@ -127,6 +139,8 @@ class Main{
         //print the BST
         System.out.println("The BST Created with input data(Left-root-right):");
         bst.inOrder_traversal();
+        System.out.println("\nThe smallest number in the BST is  =>");
+        bst.getMinValue();
 
         /*
         //delete leaf node
@@ -165,5 +179,7 @@ class Main{
         //PostOrder Traversal
         System.out.println("\nBST => PostOrder Traversal:");
         tree.postOrder_traversal();
+        System.out.println("\nThe smallest number in the BST is  =>");
+        tree.getMinValue();
     }
 }
