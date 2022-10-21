@@ -48,6 +48,18 @@ class BST_Class {
     }
 
     boolean search(int key)  {
+        Node trav = root;
+        
+        while (trav != null) {
+            if (trav.key == key)
+                return true;
+
+            if (trav.key < key)
+                trav = trav.right;
+            else
+                trav = trav.left;
+        }
+        
         return false;
     }
 
@@ -130,12 +142,12 @@ class Main{
         System.out.println("\nThe BST after Delete 45 (Node with two children):");
         bst.deleteKey(45);
         bst.inOrder_traversal();
+        */
         //search a key in the BST
         boolean ret_val = bst.search (50);
         System.out.println("\nKey 50 found in BST: " + ret_val );
         ret_val = bst.search (12);
         System.out.println("Key 12 found in BST: " + ret_val );
-        */
 
         //construct a BST
         BST_Class tree = new BST_Class();
