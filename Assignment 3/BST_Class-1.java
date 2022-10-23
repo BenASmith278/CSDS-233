@@ -17,9 +17,68 @@ class BST_Class {
     BST_Class(){
         root = null;
     }
+
+    // helper method to deleteKey that handles all cases
+    void delete(Node toDelete, Node toDeleteParent) {
+        // cases 1 and 2 - 0 or 1 children
+        if (toDelete.left == null || toDelete.right == null) {
+            Node toDeleteChild = null;
+
+            // case 1 - toDeleteChild = null
+            // case 2 - set toDeleteChild
+            if (toDelete.left != null)
+                toDeleteChild = toDelete.left;
+            else
+                toDeleteChild = toDelete.right;
+            
+            // assign child node to correct spot
+            if (toDelete == root)
+                root = toDeleteChild;
+            else if (toDelete.key < toDeleteParent.key)
+                toDeleteParent.left = toDeleteChild;
+            else
+                toDeleteParent.right = toDeleteChild;
+        // case 3 - two children
+        } else {
+            // find inorder successor (smallest node on right subtree)
+            Node replaceParent = toDelete;
+            Node replace = toDelete.right;
+
+            while (replace.left != null) {
+                replaceParent = replace;
+                replace = replace.left;
+            }
+
+            // change info in deleted node to replacement's info
+            toDelete.key = replace.key;
+
+            // delete the replacement's old node
+            delete(replace, replaceParent);
+        }
+    }
+
     //delete a node from BST
     void deleteKey(int key) {
+        Node toDeleteParent = null;
+        Node trav = root;
 
+        // find node to delete
+        while (trav != null && trav.key != key) {
+            toDeleteParent = trav;
+
+            // go right if key bigger
+            if (trav.key < key) 
+                trav = trav.right;
+            // go left if key smaller
+            else 
+                trav = trav.left;
+        }
+
+        // if node exists, delete
+        if (trav != null)
+            delete(trav, toDeleteParent);
+
+        return;
     }
 
     // finds minimum value in tree starting from root
@@ -31,11 +90,12 @@ class BST_Class {
             trav = trav.left;
         }
 
+        System.out.println(trav.key);
         return trav.key;
     }
 
     void getMinValue() {
-        System.out.println(minValue(root));
+        minValue(root);
     }
 
     // insert a node in BST
@@ -59,19 +119,25 @@ class BST_Class {
         return root;
     }
 
+    // return true if node with given key exists
     boolean search(int key)  {
         Node trav = root;
         
+        // traverse through tree
         while (trav != null) {
+            // key found
             if (trav.key == key)
                 return true;
 
+            // go right if key bigger
             if (trav.key < key)
                 trav = trav.right;
+            // go left if key smaller
             else
                 trav = trav.left;
         }
         
+        // key not found
         return false;
     }
 
@@ -142,7 +208,6 @@ class Main{
         System.out.println("\nThe smallest number in the BST is  =>");
         bst.getMinValue();
 
-        /*
         //delete leaf node
         System.out.println("\nThe BST after Delete 12(leaf node):");
         bst.deleteKey(12);
@@ -156,7 +221,7 @@ class Main{
         System.out.println("\nThe BST after Delete 45 (Node with two children):");
         bst.deleteKey(45);
         bst.inOrder_traversal();
-        */
+        
         //search a key in the BST
         boolean ret_val = bst.search (50);
         System.out.println("\nKey 50 found in BST: " + ret_val );
