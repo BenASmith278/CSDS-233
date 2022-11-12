@@ -47,3 +47,22 @@ will realize (a) insert and (c) in-order methods, which, I believe, could make y
 have a good start. Now you should finish the remaining tasks. 
 In your Main class, create an instance of BST_Class and realize the following 
 outputs.
+
+### Assignment 4
+Write  a  method  called  wordCount  that  takes  a  string  as  an  input  and  prints  out  all  the  words 
+encountered in that input, along with their number of occurrences. Use a hash table with separate 
+chaining to implement the method.
+Assumptions for simplicity: 
+- The method is not case-sensitive, meaning that “CSDS” and “csds” are the same. 
+- A word is defined to be a string between 2 non-alphabetical characters, which include but not limited to space, punctuations, ‘\t’, ‘\n’, hyphens, underscores, parentheses, etc.
+General procedure:
+- Split the input string into a list of strings based on non-alphabetical characters. To do this, you can use the method String.split(“\\P{Alpha}+”)
+- For each word, search if it is already in the hash table or not. If it is not, add a new entry with an initial frequency of 1. If it is, update the frequency
+- If a new entry is added, check if the table needs to be expanded.
+- After  scanning  the  entire  list  of  words,  loop  through  the  hash  table  and  print  out  the  list  of words and their frequencies in any order you like.
+Additional instructions:
+- Use of Java built-in HashTable or any libraries is prohibited, and your work will not be graded if you do so. You should be able to build the hash table, along with desired methods, without using any Java or third-party libraries.
+- For the hash function, Java has a “hashCode” function on strings that you can use. For a “string str”, its hash code “h” would be “h = Math.abs(str.hashCode()) % tableSize”. Feel free to come up with your own hash function if you wish to.
+- “tableSize” should be adaptive to the situation. If you set “tableSize” to be sufficiently large so it won’t need to be expanded and rehashed, you will be penalized.
+- Keep track of the load factor to determine when to expand and rehash your table. For example, if  the  load  factor  exceeds  a  predefined  threshold,  you  can  double  the  size  of  the  hash  table. Keep in mind that while expanding, the hash code of strings might change, so a helper method is needed for rehashing.
+- Your method should cover most, if not all, cases, as it will be tested with various inputs.
