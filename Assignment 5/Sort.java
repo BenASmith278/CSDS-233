@@ -19,6 +19,18 @@ public class Sort {
      * complexity should be O(n^2).
      */
     void insertionSort(int[] arr) {
+        int j;
+        
+        // shift each element left to proper spot
+        for (int i = 1; i < arr.length; i++) {
+            int toInsert = arr[i];
+            
+            // shift arr[j] left if bigger than arr[j-1]
+            for (j = i; j > 0 && toInsert > arr[j-1]; j--) 
+                  arr[j] = arr[j-1];
+
+            arr[j] = toInsert;
+        }
     }
 
     /*
