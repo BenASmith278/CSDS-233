@@ -196,12 +196,12 @@ public class Sort {
 
     void myUpgradedQuickSort(int[] arr, int[] temp, int d, int depth, int k, int first, int last) {  // recursively run algorithm
         // different base cases depending on situation
-        if (depth >= d) {
-            myMergeSort(arr, temp, first, last);
-            return;
-        }
         if (last - first < k) {
             insertionSort(arr, first, last);
+            return;
+        }
+        if (depth >= d) {
+            myMergeSort(arr, temp, first, last);
             return;
         }
 

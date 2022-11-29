@@ -4,7 +4,7 @@ public class Demo {
     static Sort Sorter = new Sort();
 
     public static void main(String[] args){
-        int[] sizes = new int[] {10, 20, 50, 100, 200, 500, 1000, 2000};  // all the sizes of array to test
+        int[] sizes = new int[] {10, 20, 50, 100, 200, 500, 1000, 2000, 5000};  // all the sizes of array to test
 
         System.out.println("RANDOM INPUTS:");
         for(int n : sizes) {  // for each size run the experiments
@@ -14,13 +14,13 @@ public class Demo {
             System.out.println();
         }
 
-        System.out.println("SORTED INPUTS:");
-        for(int n : sizes) {
-            System.out.println("N=" + n);
-            array = makeSortedArray(n);
-            runExperiments();
-            System.out.println();
-        }
+            System.out.println("SORTED INPUTS:");
+            for(int n : sizes) {
+                System.out.println("N=" + n);
+                array = makeSortedArray(n);
+                runExperiments();
+                System.out.println();
+            }
 
         System.out.println("REVERSE-SORTED INPUTS:");
         for(int n : sizes) {
@@ -32,7 +32,7 @@ public class Demo {
 
     }
 
-    static int[] makeSortedArray(int n) {  // makes sorted array of size n
+    static int[] makeRSortedArray(int n) {  // makes reverse-sorted sorted array of size n
         int[] nums = new int[n];
 
         for(int i=0; i<n; i++) {
@@ -42,7 +42,7 @@ public class Demo {
         return nums;
     }
 
-    static int[] makeRSortedArray(int n) {  // makes reverse-sorted array of size n
+    static int[] makeSortedArray(int n) {  // makes array of size n
         int[] nums = new int[n];
 
         for(int i=0; i<n; i++) {
@@ -97,14 +97,14 @@ public class Demo {
         setArrays();
 
         start = System.nanoTime();
-        Sorter.upgradedQuickSort(testArr, 2, 3);
+        Sorter.upgradedQuickSort(testArr, 1, 25);
         end = System.nanoTime();
         elapse = end - start;
         System.out.println("upgraded quick: " + elapse);
         setArrays();
     }
 
-    static void setArrays(){  // reset testArr elements to array values
+    static void setArrays(){  // reset testArr elements to original values (unsort testArr)
         testArr = new int[array.length];
 
         for(int i=0; i<array.length; i++) {
