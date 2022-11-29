@@ -191,60 +191,60 @@ class BST_Class {
         preOrder(root);  }
 }
 
-class Main{
-    public static void main(String[] args)  {
-        //create a BST object
-        BST_Class bst = new BST_Class();
-        //insert data into BST
-        bst.insert(45);
-        bst.insert(10);
-        bst.insert(7);
-        bst.insert(12);
-        bst.insert(90);
-        bst.insert(50);
-        //print the BST
-        System.out.println("The BST Created with input data(Left-root-right):");
-        bst.inOrder_traversal();
-        System.out.println("\nThe smallest number in the BST is  =>");
-        bst.getMinValue();
+// class Main{
+//     public static void main(String[] args)  {
+//         //create a BST object
+//         BST_Class bst = new BST_Class();
+//         //insert data into BST
+//         bst.insert(45);
+//         bst.insert(10);
+//         bst.insert(7);
+//         bst.insert(12);
+//         bst.insert(90);
+//         bst.insert(50);
+//         //print the BST
+//         System.out.println("The BST Created with input data(Left-root-right):");
+//         bst.inOrder_traversal();
+//         System.out.println("\nThe smallest number in the BST is  =>");
+//         bst.getMinValue();
 
-        //delete leaf node
-        System.out.println("\nThe BST after Delete 12(leaf node):");
-        bst.deleteKey(12);
-        bst.inOrder_traversal();
-        //delete the node with one child
-        System.out.println("\nThe BST after Delete 90 (node with 1 child):");
-        bst.deleteKey(90);
-        bst.inOrder_traversal();
+//         //delete leaf node
+//         System.out.println("\nThe BST after Delete 12(leaf node):");
+//         bst.deleteKey(12);
+//         bst.inOrder_traversal();
+//         //delete the node with one child
+//         System.out.println("\nThe BST after Delete 90 (node with 1 child):");
+//         bst.deleteKey(90);
+//         bst.inOrder_traversal();
 
-        //delete node with two children  
-        System.out.println("\nThe BST after Delete 45 (Node with two children):");
-        bst.deleteKey(45);
-        bst.inOrder_traversal();
+//         //delete node with two children  
+//         System.out.println("\nThe BST after Delete 45 (Node with two children):");
+//         bst.deleteKey(45);
+//         bst.inOrder_traversal();
         
-        //search a key in the BST
-        boolean ret_val = bst.search (50);
-        System.out.println("\nKey 50 found in BST: " + ret_val );
-        ret_val = bst.search (12);
-        System.out.println("Key 12 found in BST: " + ret_val );
+//         //search a key in the BST
+//         boolean ret_val = bst.search (50);
+//         System.out.println("\nKey 50 found in BST: " + ret_val );
+//         ret_val = bst.search (12);
+//         System.out.println("Key 12 found in BST: " + ret_val );
 
-        //construct a BST
-        BST_Class tree = new BST_Class();
-        tree.root = new Node(45);
-        tree.root.left = new Node(10);
-        tree.root.right = new Node(90);
-        tree.root.left.left = new Node(7);
-        tree.root.left.right = new Node(12);
-        //PreOrder Traversal
-        System.out.println("\nBST => PreOrder Traversal:");
-        tree.preOrder_traversal();
-        //InOrder Traversal
-        System.out.println("\nBST => InOrder Traversal:");
-        tree.inOrder_traversal();
-        //PostOrder Traversal
-        System.out.println("\nBST => PostOrder Traversal:");
-        tree.postOrder_traversal();
-        System.out.println("\nThe smallest number in the BST is  =>");
-        tree.getMinValue();
-    }
-}
+//         //construct a BST
+//         BST_Class tree = new BST_Class();
+//         tree.root = new Node(45);
+//         tree.root.left = new Node(10);
+//         tree.root.right = new Node(90);
+//         tree.root.left.left = new Node(7);
+//         tree.root.left.right = new Node(12);
+//         //PreOrder Traversal
+//         System.out.println("\nBST => PreOrder Traversal:");
+//         tree.preOrder_traversal();
+//         //InOrder Traversal
+//         System.out.println("\nBST => InOrder Traversal:");
+//         tree.inOrder_traversal();
+//         //PostOrder Traversal
+//         System.out.println("\nBST => PostOrder Traversal:");
+//         tree.postOrder_traversal();
+//         System.out.println("\nThe smallest number in the BST is  =>");
+//         tree.getMinValue();
+//     }
+// }
