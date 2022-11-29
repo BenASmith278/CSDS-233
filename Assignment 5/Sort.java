@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * <h1> Sorting Algorithms </h1>
@@ -21,18 +24,22 @@ public class Sort {
      * complexity should be O(n^2).
      */
     void insertionSort(int[] arr) {
+        insertionSort(arr, 0, arr.length - 1);
+
+        System.out.println("insertionSort: " + Arrays.toString(arr));
+    }
+
+    void insertionSort(int[] arr, int first, int last) {
         int j;
         
-        for (int i = 1; i < arr.length; i++) {  // shift each element left to proper spot
+        for (int i = first; i <= last; i++) {  // shift each element left to proper spot
             int toInsert = arr[i];
             
-            for (j = i; j > 0 && toInsert > arr[j-1]; j--)  // shift arr[j] left if bigger than arr[j-1]
+            for (j = i; j > first && toInsert > arr[j-1]; j--)  // shift arr[j] left if bigger than arr[j-1]
                   arr[j] = arr[j-1];
 
             arr[j] = toInsert;
         }
-
-        System.out.println(Arrays.toString(arr));
     }
 
     /*
@@ -41,14 +48,14 @@ public class Sort {
      * should be O(n^2) or O(n) best case.
      */
     void bubbleSort(int[] arr) {  // work right->left, if elements in wrong spot then swap
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = arr.length - 1; j > i; j--) {
-                if (arr[j] > arr[j-1])
+        for (int i = arr.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (arr[j] < arr[j+1])
                     swap(arr, j, j+1);
             }
         }
         
-        System.out.println(Arrays.toString(arr));
+        System.out.println("bubbleSort: " + Arrays.toString(arr));
     }
 
     void swap(int[] arr, int left, int right) {  // switch elements at left and right index
@@ -84,7 +91,7 @@ public class Sort {
             incr = incr/2;
         }
 
-        System.out.println(Arrays.toString(arr));
+        System.out.println("shellSort: " + Arrays.toString(arr));
     }
 
     /*
@@ -96,7 +103,7 @@ public class Sort {
     void quickSort(int[] arr) {
         myQuickSort(arr, 0, arr.length - 1);
 
-        System.out.println(Arrays.toString(arr));
+        System.out.println("quickSort: " + Arrays.toString(arr));
     }
 
     void myQuickSort(int[] arr, int first, int last) {  // recursively run algorithm
@@ -137,7 +144,7 @@ public class Sort {
         int[] temp = new int[arr.length];
         myMergeSort(arr, temp, 0, arr.length - 1);
 
-        System.out.println(Arrays.toString(arr));
+        System.out.println("mergeSort: " + Arrays.toString(arr));
     }
 
     void myMergeSort(int[] arr, int[] temp, int start, int end) {
@@ -192,8 +199,27 @@ public class Sort {
      * input array arr into descending order. Time complexity
      * should be O(nlogn)
      */
-    void upgradedQuickSort(int[] arr) {
+    void upgradedQuickSort(int[] arr, int d, int k) {
+        int[] temp = new int[arr.length];
+        myUpgradedQuickSort(arr, temp, d, 0, k, 0, arr.length - 1);
 
+        System.out.println("upgradedQuickSort: " + Arrays.toString(arr));
+    }
+
+    void myUpgradedQuickSort(int[] arr, int[] temp, int d, int depth, int k, int first, int last) {  // recursively run algorithm
+        // different base cases depending on situation
+        if (depth >= d) {
+            myMergeSort(arr, temp, first, last);
+            return;
+        }
+        if (last - first < k) {
+            insertionSort(arr, first, last);
+            return;
+        }
+
+        int split = partition(arr, first, last);
+        myUpgradedQuickSort(arr, temp, d, depth + 1, k, first, split);
+        myUpgradedQuickSort(arr, temp, d, depth + 1, k, split + 1, last);
     }
 
     /*
@@ -202,13 +228,59 @@ public class Sort {
      */
     int[] generateRandomArray(int n) {
         int[] arr = new int[n];
+
+        for(int i = 0; i < n; i++) {
+            arr[i] = -10 + (int)(Math.random() * (21));  // generate random number from -10 to 10
+        }
+
         return arr;
     }
 
     /*
-     * 
+     * Reads a .txt file and prints the results of the
+     * commands.
      */
-    void readCommands(String filepath) {
+    void readCommands(String filepath) throws FileNotFoundException {
+        File commands = new File(filepath);
+        Scanner sc = new Scanner(commands);
 
+        while(sc.hasNextLine()) {
+            String command = sc.nextLine();  // get line
+            String algo = command.substring(0, command.indexOf(":"));  // reads algorithm part of command
+            String array = command.substring(command.indexOf("[") + 1, command.indexOf("]"));  // reads array part of command
+            String d = command.substring(command.indexOf(":") + 2, command.indexOf(":") + 3);  // gets d value
+            String k = command.substring(command.indexOf(":") + 6, command.indexOf(":") + 7);  // gets k value
+            // splits array part of command into numbers
+            // converts to int[]
+            String[] nums = array.split(",");
+            int[] arr = new int[nums.length];
+            for(int i=0; i<nums.length; i++) {
+                arr[i] = Integer.parseInt(nums[i]);
+            }
+
+            // choose method based on algo string
+            switch(algo) {
+                case "insertionSort":
+                    insertionSort(arr);
+                    break;
+                case "bubbleSort":
+                    bubbleSort(arr);
+                    break;
+                case "shellSort":
+                    shellSort(arr);
+                    break;
+                case "quickSort":
+                    quickSort(arr);
+                    break;
+                case "mergeSort":
+                    mergeSort(arr);
+                    break;
+                case "upgradedQuickSort":
+                    upgradedQuickSort(arr, Integer.parseInt(d), Integer.parseInt(k));
+                    break;
+            }
+        }
+
+        sc.close();
     }
 }
