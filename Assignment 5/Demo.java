@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Demo {
     static private int[] array; 
     static public int[] testArr;  // use a different array for testing to keep tests consistent
