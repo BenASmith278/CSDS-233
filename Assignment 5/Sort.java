@@ -94,17 +94,18 @@ public class Sort {
      * O(n^2) worst case.
      */
     void quickSort(int[] arr) {
-        myQuickSort(arr, 0, arr.length-1);
+        myQuickSort(arr, 0, arr.length - 1);
 
         System.out.println(Arrays.toString(arr));
     }
 
     void myQuickSort(int[] arr, int first, int last) {  // recursively run algorithm
-        if (first >= last) return;  // stop when subarray size is 1
+        if (first >= last) 
+            return;  // stop when subarray size is 1
 
         int split = partition(arr, first, last);
         myQuickSort(arr, first, split);
-        myQuickSort(arr, split+1, last);
+        myQuickSort(arr, split + 1, last);
     }
 
     int partition(int[] arr, int first, int last) {
@@ -114,14 +115,14 @@ public class Sort {
         while (true) {  // increment first and last until need to swap
             do {
                 i++;
-            } while (arr[i] < pivot);
+            } while (arr[i] > pivot);
             
             do {
                 j--;
-            } while (arr[j] > pivot);
+            } while (arr[j] < pivot);
             
-            if (i > j)
-                swap(arr, i, j);
+            if (i < j)
+                swap(arr, j, i);
             else
                 return j; // arr[j] = end of left array
         }
