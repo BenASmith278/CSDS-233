@@ -62,8 +62,6 @@ public class Demo {
         long end;
         long elapse;
         setArrays();
-        if(array.length < 20)
-            System.out.println(Arrays.toString(testArr));
 
         start = System.nanoTime();
         Sorter.insertionSort(testArr);
@@ -71,8 +69,6 @@ public class Demo {
         elapse = end - start;
         System.out.println("insertion: " + elapse);
         setArrays();  // reset array so tests are consistent
-        if(array.length < 20)
-            System.out.println(Arrays.toString(testArr));
 
         start = System.nanoTime();
         Sorter.bubbleSort(testArr);
