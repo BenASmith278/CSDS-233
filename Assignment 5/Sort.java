@@ -25,8 +25,6 @@ public class Sort {
      */
     void insertionSort(int[] arr) {
         insertionSort(arr, 0, arr.length - 1);
-
-        System.out.println("insertionSort: " + Arrays.toString(arr));
     }
 
     void insertionSort(int[] arr, int first, int last) {
@@ -54,8 +52,6 @@ public class Sort {
                     swap(arr, j, j+1);
             }
         }
-        
-        System.out.println("bubbleSort: " + Arrays.toString(arr));
     }
 
     void swap(int[] arr, int left, int right) {  // switch elements at left and right index
@@ -90,8 +86,6 @@ public class Sort {
 
             incr = incr/2;
         }
-
-        System.out.println("shellSort: " + Arrays.toString(arr));
     }
 
     /*
@@ -102,8 +96,6 @@ public class Sort {
      */
     void quickSort(int[] arr) {
         myQuickSort(arr, 0, arr.length - 1);
-
-        System.out.println("quickSort: " + Arrays.toString(arr));
     }
 
     void myQuickSort(int[] arr, int first, int last) {  // recursively run algorithm
@@ -143,8 +135,6 @@ public class Sort {
     void mergeSort(int[] arr) {
         int[] temp = new int[arr.length];
         myMergeSort(arr, temp, 0, arr.length - 1);
-
-        System.out.println("mergeSort: " + Arrays.toString(arr));
     }
 
     void myMergeSort(int[] arr, int[] temp, int start, int end) {
@@ -202,8 +192,6 @@ public class Sort {
     void upgradedQuickSort(int[] arr, int d, int k) {
         int[] temp = new int[arr.length];
         myUpgradedQuickSort(arr, temp, d, 0, k, 0, arr.length - 1);
-
-        System.out.println("upgradedQuickSort: " + Arrays.toString(arr));
     }
 
     void myUpgradedQuickSort(int[] arr, int[] temp, int d, int depth, int k, int first, int last) {  // recursively run algorithm
@@ -262,25 +250,83 @@ public class Sort {
             switch(algo) {
                 case "insertionSort":
                     insertionSort(arr);
+                    System.out.println("insertionSort: " + Arrays.toString(arr));
                     break;
                 case "bubbleSort":
                     bubbleSort(arr);
+                    System.out.println("bubbleSort: " + Arrays.toString(arr));
                     break;
                 case "shellSort":
                     shellSort(arr);
+                    System.out.println("shellSort: " + Arrays.toString(arr));
                     break;
                 case "quickSort":
                     quickSort(arr);
+                    System.out.println("quickSort: " + Arrays.toString(arr));
                     break;
                 case "mergeSort":
                     mergeSort(arr);
+                    System.out.println("mergeSort: " + Arrays.toString(arr));
                     break;
                 case "upgradedQuickSort":
                     upgradedQuickSort(arr, Integer.parseInt(d), Integer.parseInt(k));
+                    System.out.println("upgradedQuickSort: " + Arrays.toString(arr));
                     break;
             }
         }
 
         sc.close();
+    }
+
+    /*
+     * Get time before and after sorting and print difference.
+     */
+    void runExperiments(int[] arr){
+        long start;
+        long end;
+        long elapse;
+        int[] testArr = arr;  // use a different array variable to not overwrite arr
+        
+        start = System.nanoTime();
+        insertionSort(testArr);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("insertion: " + elapse);
+        testArr = arr;
+
+        start = System.nanoTime();
+        bubbleSort(testArr);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("bubble: " + elapse);
+        testArr = arr;
+
+        start = System.nanoTime();
+        shellSort(testArr);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("shell: " + elapse);
+        testArr = arr;
+
+        start = System.nanoTime();
+        quickSort(testArr);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("quick: " + elapse);
+        testArr = arr;
+
+        start = System.nanoTime();
+        mergeSort(testArr);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("merge: " + elapse);
+        testArr = arr;
+
+        start = System.nanoTime();
+        upgradedQuickSort(testArr, 2, 3);
+        end = System.nanoTime();
+        elapse = end - start;
+        System.out.println("upgraded quick: " + elapse);
+        testArr = arr;
     }
 }
