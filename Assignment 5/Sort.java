@@ -45,7 +45,7 @@ public class Sort {
      * array arr in descending order. Time complexity
      * should be O(n^2) or O(n) best case.
      */
-    void bubbleSort(int[] arr) {  // work right->left, if elements in wrong spot then swap
+    void bubbleSort(int[] arr) {  // work left->right, if elements in wrong spot then swap
         for (int i = arr.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (arr[j] < arr[j+1])
@@ -212,13 +212,13 @@ public class Sort {
 
     /*
      * Takes random input and generates a randomized 
-     * array of size n.
+     * array of size n and range -r to r.
      */
-    int[] generateRandomArray(int n) {
+    int[] generateRandomArray(int n, int r) {
         int[] arr = new int[n];
 
         for(int i = 0; i < n; i++) {
-            arr[i] = -10 + (int)(Math.random() * (21));  // generate random number from -10 to 10
+            arr[i] = -r + (int)(Math.random() * ((r*2) + 1));  // generate random number from -r to r
         }
 
         return arr;
@@ -276,57 +276,5 @@ public class Sort {
         }
 
         sc.close();
-    }
-
-    /*
-     * Get time before and after sorting and print difference.
-     */
-    void runExperiments(int[] arr){
-        long start;
-        long end;
-        long elapse;
-        int[] testArr = arr;  // use a different array variable to not overwrite arr
-        
-        start = System.nanoTime();
-        insertionSort(testArr);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("insertion: " + elapse);
-        testArr = arr;
-
-        start = System.nanoTime();
-        bubbleSort(testArr);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("bubble: " + elapse);
-        testArr = arr;
-
-        start = System.nanoTime();
-        shellSort(testArr);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("shell: " + elapse);
-        testArr = arr;
-
-        start = System.nanoTime();
-        quickSort(testArr);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("quick: " + elapse);
-        testArr = arr;
-
-        start = System.nanoTime();
-        mergeSort(testArr);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("merge: " + elapse);
-        testArr = arr;
-
-        start = System.nanoTime();
-        upgradedQuickSort(testArr, 2, 3);
-        end = System.nanoTime();
-        elapse = end - start;
-        System.out.println("upgraded quick: " + elapse);
-        testArr = arr;
     }
 }
