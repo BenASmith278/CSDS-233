@@ -134,7 +134,57 @@ public class Sort {
      * be O(nlogn).
      */
     void mergeSort(int[] arr) {
+        int[] temp = new int[arr.length];
+        myMergeSort(arr, temp, 0, arr.length - 1);
 
+        System.out.println(Arrays.toString(arr));
+    }
+
+    void myMergeSort(int[] arr, int[] temp, int start, int end) {
+        if (start >= end ) // base case
+            return;
+        int middle = (start + end)/2; // The splitting step
+        // Sort first and second halves 
+        myMergeSort (arr, temp, start, middle); 
+        myMergeSort (arr, temp, middle + 1, end); 
+
+        // Merge the sorted halves 
+        merge(arr, temp, start, middle, middle+1, end); 
+    }
+
+    static void merge(int[] arr, int[] temp, int leftStart, int leftEnd, int rightStart, int rightEnd) {
+        int i = leftStart; // index into left subarray
+        int j = rightStart; // index into right subarray
+        int k = leftStart; // index into temp
+
+        while (i <= leftEnd && j <= rightEnd) {
+            if (arr[i] > arr[j]) { 
+                temp[k] = arr[i]; 
+                i++; 
+            } else { 
+                temp[k] = arr[j]; 
+                j++; 
+            } 
+            
+            k++; 
+        }
+
+        // Copy remaining elements of left array if any
+        while (i <= leftEnd) { 
+            temp[k] = arr[i]; 
+            i++; 
+            k++; 
+        } 
+
+        // Copy remaining elements of right array if any
+        while (j <= rightEnd) { 
+            temp[k] = arr[j]; 
+            j++; 
+            k++; 
+        } 
+
+        for (i = leftStart; i <= rightEnd; i++) // copy back
+            arr[i] = temp[i];
     }
 
     /*
