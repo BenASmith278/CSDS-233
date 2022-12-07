@@ -91,3 +91,45 @@ In this programming assignment you will implement and benchmark basic sorting al
     - Is insertion sort ever preferable? Your answer should include examples with benchmarks.
     - Are there input cases where one method performs poorly? Again, show examples with benchmarks.
     - Make a table to show for each of the input sizes (n = 10,20 ...) and input type (random, sorted, reverse-sorted) which sorting algorithm is optimal and how much time they take.
+
+## Assignment 6
+
+In this assignment you will implement basic graph search algorithms. The specifications below are fairly detailed, but they do not attempt to describe every situation or consideration exhaustively. It is part of the programming exercises to decide how to handle these types of cases and do something reasonable.
+
+### Constructing undirected, unweighted graphs (35 pts)
+
+Create a class Graph with the methods listed below. Nodes are referenced by their node names, which are Strings. The methods with boolean return types should return true if successful and false otherwise.
+
+- boolean addNode(String name) - adds a node to the graph and checks for duplicates.
+- boolean addNodes(string[] names) - adds a list of nodes to the graph and checks for duplicates.
+- boolean addEdge(String from, String to) - adds an edge from node from to node to.
+- boolean addEdges(String from, String[] tolist) - adds an undirected edge from node from to each node in tolist.
+- boolean removeNode(String name) - removes a node from the graph along with all connected edges.
+- boolean removeNodes(String[] nodelist) - removes each node in nodelist and their edges from the graph.
+- void printGraph() - prints the graph in an adjacency list format. The nodes and their neighbors and their neighbors should be listed in alphabetical order.
+
+### Finding paths (15 pts)
+
+Next you will implement methods to find paths between two nodes using depth-first and breadth-first search.
+
+- String[] DFS(String from, String to, String neighborOrder) - returns the result, i.e. the path or a list of node names, of depth-first search between nodes from and to. The order in which neighbors are considered is specified by neighborOrder, which can be "alphabetical" or "reverse" for reverse alphabetical order. It should return an empty array if no path exists.
+- String[] BFS(String from, String to, String neighborOrder) - as in DFS, but using the breadth-first search algorithm. If there are multiple paths of equivalent length, you only need to return one of them.
+- String[] shortestPath(String from, String to) - uses Dijkstra’s algorithm to find the shortest path from node from to node to. If there are multiple paths of equivalent length, you only need to return one of them. If the path does not exist, return an empty array.
+- String[] secondShortestPath(String from, String to) - returns the second shortest path between nodes from and to. Again, you only need to return one path in the case of multiple equivalent results.
+
+Your demonstration should use multiple examples to illustrate all the functionality and, in the case of DFS, how results can vary depending on the neighbor order.
+
+### Directed, weighted graphs (Extra Credit Section: 3 Pts)
+
+Make a WeightedGraph class to work for weighted and directed graphs. Here we will assume that the graphs are both weighted and directed. As above, also write the following methods to construct graphs programmatically:
+
+- boolean addWeightedEdge(String from, String to, int weight) - adds an weighted edge from node from to node to. Note that for simplicity, we will only consider integer weights. (1 pts)
+- boolean addWeightedEdges(String from, String[] tolist, int[] weightlist) - adds an edge from node from to each node in tolist with the corresponding weights in weightlist. (1 pts)
+- void printWeightedGraph() - prints the graph in an adjacency list format. The nodes and their neighbors and their neighbors should be listed in alphabetical order. (1 pts) 
+
+### Shortest paths on directed, weighted graphs (Extra Credit Section: 7 Pts)
+
+Now implement shortest path methods for directed, weighted graphs:
+
+- String[] shortestPath(String from, String to) - uses Dijkstra’s algorithm to find the shortest path from node from to node to. If there are multiple paths of equivalent length, you only need to return one of them. If the path does not exist, return an empty array. (3 Pts)
+- String[] secondShortestPath(String from, String to) - returns the second shortest path between nodes from and to. Again, you only need to return one path in the case of multiple equivalent results. Again, return an empty array if no 2nd shortest path exists (i.e. there is no path or only one path). (4 pts, can gain 2 pts for written explanation/theory only)
