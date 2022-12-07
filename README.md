@@ -125,7 +125,7 @@ Make a WeightedGraph class to work for weighted and directed graphs. Here we wil
 
 - boolean addWeightedEdge(String from, String to, int weight) - adds an weighted edge from node from to node to. Note that for simplicity, we will only consider integer weights. (1 pts)
 - boolean addWeightedEdges(String from, String[] tolist, int[] weightlist) - adds an edge from node from to each node in tolist with the corresponding weights in weightlist. (1 pts)
-- void printWeightedGraph() - prints the graph in an adjacency list format. The nodes and their neighbors and their neighbors should be listed in alphabetical order. (1 pts) 
+- void printWeightedGraph() - prints the graph in an adjacency list format. The nodes and their neighbors and their neighbors should be listed in alphabetical order. (1 pts)
 
 ### Shortest paths on directed, weighted graphs (Extra Credit Section: 7 Pts)
 
