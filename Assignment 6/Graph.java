@@ -44,9 +44,16 @@ public class Graph {
             vertices = newVertices;
         }
 
-        
+        int j = numVertices;
+        for(int i=numVertices-1; i>-1; i--) {
+            if(vertices[i].id.hashCode() > name.hashCode()) {
+                j--;
+                vertices[i+1] = vertices[i];
+            }
+        }
 
         numVertices++;
+        vertices[j] = new Vertex(name);
     }
 
     public boolean addNodes(String[] names) {
@@ -60,14 +67,9 @@ public class Graph {
         return true;
     }
 
-
-        // false if no duplicate
-        return false;
-    }
-
     private int findIndex(String name) {
         // return index of name in vertices
-        for(int i=0; i<maxNum; i++) {
+        for(int i=0; i<numVertices; i++) {
             if(vertices[i].id == name) {
                 return i;
             }
@@ -94,7 +96,13 @@ public class Graph {
         Edge newEdge = new Edge();
         newEdge.endNode = j;
 
-        vertices[i].edges.add(newEdge);
+        int n = vertices[i].edges.size();
+        for(int m=n-1; m>-1; m--) {
+            if(vertices[i].edges.get(m).endNode > newEdge.endNode) {
+                n--;
+            }
+        }
+        vertices[i].edges.add(n, newEdge);
 
         // add an edge to j for Node i
         newEdge = new Edge();
