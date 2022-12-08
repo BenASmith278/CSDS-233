@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Graph {
     class Vertex {
@@ -34,7 +33,7 @@ public class Graph {
         return true;
     }
 
-    public void addNodeHelper(String name) {
+    private void addNodeHelper(String name) {
         // grow vertices if array "vertices" is too small
         if(numVertices >= maxNum) {
             Vertex[] newVertices = new Vertex[maxNum+5];
@@ -45,7 +44,8 @@ public class Graph {
             vertices = newVertices;
         }
 
-        vertices[numVertices] = new Vertex(name);
+        
+
         numVertices++;
     }
 
@@ -65,7 +65,7 @@ public class Graph {
         return false;
     }
 
-    public int findIndex(String name) {
+    private int findIndex(String name) {
         // return index of name in vertices
         for(int i=0; i<maxNum; i++) {
             if(vertices[i].id == name) {
@@ -86,7 +86,7 @@ public class Graph {
         return true;
     }
 
-    public void addEdgeHelper(String from, String to) {
+    private void addEdgeHelper(String from, String to) {
         int i = findIndex(from);
         int j = findIndex(to);
         
@@ -137,8 +137,10 @@ public class Graph {
     public void printGraph() {
         for(int i=0;i<numVertices;i++) {
             System.out.print(vertices[i].id + ": ");
+
             for(int j=0;j<vertices[i].edges.size();j++) {
                 System.out.print(vertices[vertices[i].edges.get(j).endNode].id);
+
                 if(j < vertices[i].edges.size() - 1)
                     System.out.print(", ");
             }
@@ -146,4 +148,23 @@ public class Graph {
         }
     }
 
+    public String[] DFS(String from, String to, String neighborOrder) {
+        
+        return new String[0];
+    }
+
+    public String[] BFS(String from, String to, String neighborOrder) {
+
+        return new String[0];
+    }
+
+    public String[] shortestPath(String from, String to) {
+
+        return new String[0];
+    }
+
+    public String[] secondShortestPath(String from, String to) {
+
+        return new String[0];
+    }
 }
