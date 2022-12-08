@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Graph {
     class Vertex {
         private String id;
-        private LinkedList<Edge> edges;  // adjacency list
+        private ArrayList<Edge> edges = new ArrayList<>();  // adjacency list
         private boolean encountered;
 
         public Vertex(String ident) {
@@ -60,8 +61,11 @@ public class Graph {
     }
 
     public boolean checkDuplicate(String id) {
+        if(numVertices == 0)
+            return false;
+
         // check for existing id in vertices
-        for(int i=0; i<maxNum; i++) {
+        for(int i=0; i<numVertices; i++) {
             if(vertices[i].id == id) {
                 return true;
             }
@@ -128,6 +132,28 @@ public class Graph {
         
         
         return true;
+    }
+
+    public boolean removeNode(String name) {
+
+        return true;
+    }
+
+    public boolean removeNodes(String[] nodelist) {
+
+        return true;
+    }
+
+    public void printGraph() {
+        for(int i=0;i<numVertices;i++) {
+            System.out.print(vertices[i].id + ": ");
+            for(int j=0;j<vertices[i].edges.size();j++) {
+                System.out.print(vertices[vertices[i].edges.get(j).endNode].id);
+                if(j < vertices[i].edges.size() - 1)
+                    System.out.print(", ");
+            }
+            System.out.println();
+        }
     }
 
 }
