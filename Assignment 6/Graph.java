@@ -28,7 +28,7 @@ public class Graph {
     }
 
     public boolean addNode(String name) {
-        if(checkDuplicate(name))
+        if(findIndex(name) != -1)  // if vertex already exists in vertices
             return false;
         addNodeHelper(name);
         return true;
@@ -51,7 +51,7 @@ public class Graph {
 
     public boolean addNodes(String[] names) {
         for(String name : names)
-            if(checkDuplicate(name))
+            if(findIndex(name) != -1)  // if vertex exists in vertices
                 return false;
 
         for(String name : names)
@@ -60,16 +60,6 @@ public class Graph {
         return true;
     }
 
-    public boolean checkDuplicate(String id) {
-        if(numVertices == 0)
-            return false;
-
-        // check for existing id in vertices
-        for(int i=0; i<numVertices; i++) {
-            if(vertices[i].id == id) {
-                return true;
-            }
-        }
 
         // false if no duplicate
         return false;
