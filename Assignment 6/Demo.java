@@ -4,12 +4,17 @@ class Demo {
 
         G.addNode("A");
         G.addNode("B");
-        G.addNode("C");
         G.addNode("D");
+        G.addNode("C");
 
         G.addEdge("A", "B");
-        G.addEdge("A", "C");
         G.addEdge("A", "D");
+        G.addEdge("A", "C");
+        G.addEdge("D", "B");
+
+        G.printGraph();
+
+        G.removeNode("D");
 
         G.printGraph();
     }
