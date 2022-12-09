@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.lang.model.util.ElementScanner14;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     class Vertex {
@@ -255,7 +254,7 @@ public class Graph {
         else if(neighborOrder == "reverse")
             myReverseDFS(from, null);
         else
-            return new String[]{null};
+            return new String[0];
         String[] trav = new String[maxNum];
 
         for(int j=0;j<numVertices;j++) {
@@ -312,8 +311,61 @@ public class Graph {
     }
 
     public String[] BFS(String from, String to, String neighborOrder) {
-        
-        return new String[0];
+        int i = findIndex(from);
+        int j = findIndex(to);
+        if(i == -1 || j == -1)
+            return new String[0];
+        if(neighborOrder != "alphabetical" && neighborOrder != "reverse")
+            return new String[0];
+
+        String[] trav = new String[maxNum];
+        vertices[i].parent = null;
+        vertices[i].encountered = true;
+        Queue<Vertex> q = new LinkedList<>();
+        q.add(vertices[i]);
+
+        int t = 0;
+        while(!q.isEmpty()) {
+            Vertex v = q.remove();
+            trav[t] = v.id;
+
+            if(v.id == to)
+                break;
+
+            if(neighborOrder == "alphabetical") {
+                for(int n=0;n<v.edges.size();n++) {
+                    Vertex w = vertices[v.edges.get(n).endNode];
+
+                    if(!w.encountered) {
+                        w.encountered = true;
+                        w.parent = v;
+                        q.add(w);
+                    }
+                }
+            } else {
+                for(int n=v.edges.size()-1;n>=0;n--) {
+                    Vertex w = vertices[v.edges.get(n).endNode];
+
+                    if(!w.encountered) {
+                        w.encountered = true;
+                        w.parent = v;
+                        q.add(w);
+                    }
+                }
+            } 
+            t++;
+        }
+
+        t = 0;
+        System.out.println("BFS " + neighborOrder + " from " + from + " to " + to + ": ");
+        while(trav[t] != null) {
+            System.out.print(trav[t]);
+            if(trav[t+1] != null)
+                System.out.print(", ");
+            t++;
+        }
+        System.out.println();
+        return trav;
     }
 
     public String[] shortestPath(String from, String to) {

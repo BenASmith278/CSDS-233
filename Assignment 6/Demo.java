@@ -12,7 +12,6 @@ class Demo {
         G.addEdge("F", "G");
         G.addEdge("G", "End");
 
-        G.removeNode("A");
-        G.DFS("Start", "End", "reverse");
+        G.BFS("Start", "End", "reverse");
     }
 }
