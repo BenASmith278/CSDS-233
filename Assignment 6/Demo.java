@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Demo {
     public static void main(String[] args) {
         Graph G = new Graph(5);
@@ -13,5 +11,6 @@ class Demo {
         G.addEdge("G", "End");
 
         G.BFS("Start", "End", "reverse");
+        G.DFS("Start", "End", "alphabetical");
     }
 }

@@ -257,7 +257,7 @@ public class Graph {
             return new String[0];
         String[] trav = new String[maxNum];
 
-        for(int j=0;j<numVertices;j++) {
+        for(int j=0;j<numVertices;j++) {  // reset vertices
             vertices[j].encountered = false;
         }
 
@@ -270,15 +270,15 @@ public class Graph {
         }
         trav[i] = from;
 
-        System.out.println("DFS " + neighborOrder + " from " + from + " to " + to + ": ");
+        System.out.println("DFS " + neighborOrder + " From " + from + " to " + to + ": ");
         while(i >= 0) {
             System.out.print(trav[i]);
             if(i > 0)
                 System.out.print(", ");
             i--;
         }
+        
         System.out.println();
-
         return trav;
     }
 
@@ -305,7 +305,7 @@ public class Graph {
 
         for(int j=vertices[i].edges.size()-1;j>=0;j--) {
             if(!vertices[vertices[i].edges.get(j).endNode].encountered) {
-                myDFS(vertices[vertices[i].edges.get(j).endNode].id, vertices[i]);
+                myReverseDFS(vertices[vertices[i].edges.get(j).endNode].id, vertices[i]);
             }
         }
     }
@@ -319,6 +319,35 @@ public class Graph {
             return new String[0];
 
         String[] trav = new String[maxNum];
+        myBFS(i, j, trav, neighborOrder);
+
+        for(Vertex v : vertices) {  // reset vertices
+            if(v != null)
+                v.encountered = false;
+        }
+
+        String iter = to;
+        int n = 0;
+        while(iter != from && vertices[findIndex(iter)].parent != null) {
+            trav[n] = iter;
+            iter = vertices[findIndex(iter)].parent.id;
+            n++;
+        }
+        trav[n] = from;
+
+        System.out.println("BFS " + neighborOrder + " From " + from + " to " + to + ": ");
+        while(n >= 0) {
+            System.out.print(trav[n]);
+            if(n > 0)
+                System.out.print(", ");
+            n--;
+        }
+        
+        System.out.println();
+        return trav;
+    }
+
+    public void myBFS(int i, int j, String[] trav, String neighborOrder) {
         vertices[i].parent = null;
         vertices[i].encountered = true;
         Queue<Vertex> q = new LinkedList<>();
@@ -329,7 +358,7 @@ public class Graph {
             Vertex v = q.remove();
             trav[t] = v.id;
 
-            if(v.id == to)
+            if(v.id == vertices[j].id)
                 break;
 
             if(neighborOrder == "alphabetical") {
@@ -355,17 +384,6 @@ public class Graph {
             } 
             t++;
         }
-
-        t = 0;
-        System.out.println("BFS " + neighborOrder + " from " + from + " to " + to + ": ");
-        while(trav[t] != null) {
-            System.out.print(trav[t]);
-            if(trav[t+1] != null)
-                System.out.print(", ");
-            t++;
-        }
-        System.out.println();
-        return trav;
     }
 
     public String[] shortestPath(String from, String to) {
