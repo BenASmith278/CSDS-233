@@ -1,21 +1,19 @@
 class Demo {
     public static void main(String[] args) {
-        Graph G = new Graph(10);
+        Graph G = new Graph(2);
 
-        G.addNode("A");
-        G.addNode("B");
-        G.addNode("D");
-        G.addNode("C");
+        G.addNodes(new String[]{"A", "B", "C", "D"});
 
-        G.addEdge("A", "B");
-        G.addEdge("A", "D");
-        G.addEdge("A", "C");
-        G.addEdge("D", "B");
-
-        G.printGraph();
+        G.addEdges("A", new String[]{"B", "D", "C"});
 
         G.removeNode("D");
 
-        G.printGraph();
+        G.addNode("D");
+        G.addEdge("A", "D");
+        G.addEdge("D", "B");
+        
+        G.removeEdge("B", "A");
+
+        G.addEdge("B", "A");
     }
 }

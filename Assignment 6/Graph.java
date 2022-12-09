@@ -30,6 +30,9 @@ public class Graph {
         if(findIndex(name) != -1)  // if vertex already exists in vertices
             return false;
         addNodeHelper(name);
+
+        System.out.println("After Add Node " + name +": ");
+        printGraph();
         return true;
     }
 
@@ -41,14 +44,18 @@ public class Graph {
                 newVertices[i] = vertices[i];
             }
 
+            maxNum += 5;
             vertices = newVertices;
         }
 
+        // place vertex in correct alphabetical spot in vertices
         int j = numVertices;
         for(int i=numVertices-1; i>-1; i--) {
-            if(vertices[i].id.hashCode() > name.hashCode()) {
-                j--;
-                vertices[i+1] = vertices[i];
+            for(int k=0;k<vertices[i].id.length() && k<name.length();k++) {
+                if(vertices[i].id.charAt(k) > name.charAt(k)) {
+                    j--;
+                    vertices[i+1] = vertices[i];
+                }
             }
         }
 
@@ -64,6 +71,8 @@ public class Graph {
         for(String name : names)
             addNodeHelper(name); 
 
+        System.out.println("After Add Nodes: ");
+        printGraph();
         return true;
     }
 
@@ -84,18 +93,19 @@ public class Graph {
         int j = findIndex(to);
         if(i == -1 || j == -1)
             return false;
-        addEdgeHelper(from, to);
+        addEdgeHelper(i, j);
+        
+        System.out.println("After Add Edge " + from + " -> " + to + ": ");
+        printGraph();
         return true;
     }
 
-    private void addEdgeHelper(String from, String to) {
-        int i = findIndex(from);
-        int j = findIndex(to);
-        
+    private void addEdgeHelper(int i, int j) {        
         // add an edge from i to j
         Edge newEdge = new Edge();
         newEdge.endNode = j;
 
+        // place edge in correct spot in edges
         int n = vertices[i].edges.size();
         for(int m=n-1; m>-1; m--) {
             if(vertices[i].edges.get(m).endNode > newEdge.endNode) {
@@ -108,12 +118,20 @@ public class Graph {
         newEdge = new Edge();
         newEdge.endNode = i;
 
-        vertices[j].edges.add(newEdge);
+        n = vertices[j].edges.size();
+        for(int m=n-1; m>-1; m--) {
+            if(vertices[j].edges.get(m).endNode > newEdge.endNode) {
+                n--;
+            }
+        }
+        vertices[j].edges.add(n, newEdge);
     }
 
     public boolean addEdges(String from, String[] tolist) {
+        int i = findIndex(from);
+        
         // check inputs
-        if(findIndex(from) == -1)
+        if(i == -1)
             return false;
         for(String to : tolist) {
             if(findIndex(to) == -1)
@@ -121,9 +139,21 @@ public class Graph {
         }
 
         for(String to : tolist)
-            addEdgeHelper(from, to);
+            addEdgeHelper(i, findIndex(to));
 
+        System.out.println("After Add Edges: ");
+        printGraph();
         return true;
+    }
+
+    private void removeEdgeHelper(String from, String to) {
+        int fromIndex = findIndex(from);
+        int toIndex = findIndex(to);
+
+        for(int i=0; i<vertices[fromIndex].edges.size();i++) {
+            if(vertices[fromIndex].edges.get(i).endNode == toIndex)
+                vertices[fromIndex].edges.remove(vertices[fromIndex].edges.get(i));
+        }
     }
 
     public boolean removeEdge(String from, String to) {
@@ -132,12 +162,11 @@ public class Graph {
         int toIndex = findIndex(to);
         if(fromIndex == -1 || toIndex == -1)
             return false;
-
-        for(int i=0; i<vertices[fromIndex].edges.size();i++) {
-            if(vertices[fromIndex].edges.get(i).endNode == toIndex)
-                vertices[fromIndex].edges.remove(vertices[fromIndex].edges.get(i));
-        }
         
+        removeEdgeHelper(from, to);
+        removeEdgeHelper(to, from);  // remove both edges
+        System.out.println("After Remove Edge " + from + " -> " + to + ": ");
+        printGraph();
         return true;
     }
 
@@ -147,21 +176,21 @@ public class Graph {
             return false;
 
         for(int i=0;i<vertices[fromIndex].edges.size();i++) {
-            removeEdge(from, vertices[vertices[fromIndex].edges.get(i).endNode].id);
+            removeEdgeHelper(from, vertices[vertices[fromIndex].edges.get(i).endNode].id);
         }
 
+        System.out.println("After Remove All Edges From Node " + from + ": ");
+        printGraph();
         return true;
     }
 
-    public boolean removeNode(String name) {
+    private void removeNodeHelper(String name) {
         int i = findIndex(name);
-        if(i == -1)
-            return false;
-
+        
         // remove all edges pointing to vertex
         removeAllEdges(name);
         for(int n=0;n<numVertices;n++) {
-            removeEdge(vertices[n].id, name);
+            removeEdgeHelper(vertices[n].id, name);
         }
 
         // shift vertices over
@@ -180,12 +209,22 @@ public class Graph {
 
         vertices[j] = null;
         numVertices--;
+    }
+
+    public boolean removeNode(String name) {
+        int i = findIndex(name);
+        if(i == -1)
+            return false;
+
+        removeNodeHelper(name);
+        System.out.println("After Remove Node " + name + ": ");
+        printGraph();
         return true;
     }
 
     public boolean removeNodes(String[] nodelist) {
         for(String name : nodelist){
-            removeNode(name);
+            removeNodeHelper(name);
         }
 
         return true;
