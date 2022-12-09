@@ -12,5 +12,6 @@ class Demo {
 
         G.BFS("Start", "End", "reverse");
         G.DFS("Start", "End", "alphabetical");
+        G.shortestPath("E", "End");
     }
 }

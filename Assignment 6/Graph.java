@@ -387,8 +387,34 @@ public class Graph {
     }
 
     public String[] shortestPath(String from, String to) {
+        int i = findIndex(from);
+        int j = findIndex(to);
+        if(i == -1 || j == -1)
+            return new String[0];
 
-        return new String[0];
+        String[] trav = new String[maxNum];
+        myBFS(i, j, trav, "alphabetical");
+
+        String iter = to;
+        int n = 0;
+        while(iter != from && vertices[findIndex(iter)].parent != null) {
+            trav[n] = iter;
+            iter = vertices[findIndex(iter)].parent.id;
+            n++;
+        }
+        trav[n] = from;
+
+        System.out.println("Shortest Path From " + from + " to " + to + ": ");
+        while(n >= 0) {
+            if(trav[n] != null) {
+                System.out.print(trav[n]);
+                if(n > 0)
+                    System.out.print(", ");
+            }
+            n--;
+        }
+        
+        return trav;
     }
 
     public String[] secondShortestPath(String from, String to) {
