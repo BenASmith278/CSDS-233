@@ -1,9 +1,13 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.lang.model.util.ElementScanner14;
 
 public class Graph {
     class Vertex {
         private String id;
         private ArrayList<Edge> edges = new ArrayList<>();  // adjacency list
+        private Vertex parent;
         private boolean encountered;
 
         public Vertex(String ident) {
@@ -38,7 +42,7 @@ public class Graph {
 
     private void addNodeHelper(String name) {
         // grow vertices if array "vertices" is too small
-        if(numVertices >= maxNum) {
+        if(numVertices >= maxNum-1) {
             Vertex[] newVertices = new Vertex[maxNum+5];
             for(int i=0; i<maxNum; i++) {
                 newVertices[i] = vertices[i];
@@ -51,11 +55,9 @@ public class Graph {
         // place vertex in correct alphabetical spot in vertices
         int j = numVertices;
         for(int i=numVertices-1; i>-1; i--) {
-            for(int k=0;k<vertices[i].id.length() && k<name.length();k++) {
-                if(vertices[i].id.charAt(k) > name.charAt(k)) {
-                    j--;
-                    vertices[i+1] = vertices[i];
-                }
+            if(vertices[i].id.compareTo(name) > 0) {
+                j--;
+                vertices[i+1] = vertices[i];
             }
         }
 
@@ -248,12 +250,69 @@ public class Graph {
     }
 
     public String[] DFS(String from, String to, String neighborOrder) {
-        
-        return new String[0];
+        if(neighborOrder == "alphabetical")
+            myDFS(from, null);
+        else if(neighborOrder == "reverse")
+            myReverseDFS(from, null);
+        else
+            return new String[]{null};
+        String[] trav = new String[maxNum];
+
+        for(int j=0;j<numVertices;j++) {
+            vertices[j].encountered = false;
+        }
+
+        String iter = to;
+        int i = 0;
+        while(iter != from && vertices[findIndex(iter)].parent != null) {
+            trav[i] = iter;
+            iter = vertices[findIndex(iter)].parent.id;
+            i++;
+        }
+        trav[i] = from;
+
+        System.out.println("DFS " + neighborOrder + " from " + from + " to " + to + ": ");
+        while(i >= 0) {
+            System.out.print(trav[i]);
+            if(i > 0)
+                System.out.print(", ");
+            i--;
+        }
+        System.out.println();
+
+        return trav;
+    }
+
+    private void myDFS(String from, Vertex parent) {
+        int i = findIndex(from);
+        if(i == -1)
+            return;
+        vertices[i].encountered = true;
+        vertices[i].parent = parent;
+
+        for(Edge e : vertices[i].edges) {
+            if(!vertices[e.endNode].encountered) {
+                myDFS(vertices[e.endNode].id, vertices[i]);
+            }
+        }
+    }
+
+    private void myReverseDFS(String from, Vertex parent) {
+        int i = findIndex(from);
+        if(i == -1)
+            return;
+        vertices[i].encountered = true;
+        vertices[i].parent = parent;
+
+        for(int j=vertices[i].edges.size()-1;j>=0;j--) {
+            if(!vertices[vertices[i].edges.get(j).endNode].encountered) {
+                myDFS(vertices[vertices[i].edges.get(j).endNode].id, vertices[i]);
+            }
+        }
     }
 
     public String[] BFS(String from, String to, String neighborOrder) {
-
+        
         return new String[0];
     }
 

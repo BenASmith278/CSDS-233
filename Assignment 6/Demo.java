@@ -1,19 +1,18 @@
+import java.util.Arrays;
+
 class Demo {
     public static void main(String[] args) {
-        Graph G = new Graph(2);
+        Graph G = new Graph(5);
 
-        G.addNodes(new String[]{"A", "B", "C", "D"});
+        G.addNodes(new String[]{"A", "C", "D", "E", "End", "F", "G", "B", "Start"});
 
-        G.addEdges("A", new String[]{"B", "D", "C"});
+        G.addEdges("A", new String[]{"G", "Start"});
+        G.addEdges("B", new String[]{"Start", "E", "F"});
+        G.addEdges("D", new String[]{"Start", "F"});
+        G.addEdge("F", "G");
+        G.addEdge("G", "End");
 
-        G.removeNode("D");
-
-        G.addNode("D");
-        G.addEdge("A", "D");
-        G.addEdge("D", "B");
-        
-        G.removeEdge("B", "A");
-
-        G.addEdge("B", "A");
+        G.removeNode("A");
+        G.DFS("Start", "End", "reverse");
     }
 }
