@@ -10,8 +10,9 @@ class Demo {
         G.addEdge("F", "G");
         G.addEdge("G", "End");
 
-        G.BFS("Start", "End", "reverse");
+        G.BFS("F", "A", "reverse");
         G.DFS("Start", "End", "alphabetical");
         G.shortestPath("E", "End");
+        // G.secondShortestPath("E", "End");
     }
 }

@@ -2,28 +2,31 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Graph {
+public class WeightedGraph {
     class Vertex {
         private String id;
         private ArrayList<Edge> edges = new ArrayList<>();  // adjacency list
         private Vertex parent;
+        private boolean cost;
         private boolean encountered;
 
-        public Vertex(String ident) {
-            id = ident;
-            encountered = false;
+        public Vertex(String ident, boolean cost) {
+            this.id = ident;
+            this.encountered = false;
+            this.cost = cost;
         }
     }
 
     class Edge {
         private int endNode;
+        private int cost;
     }
 
     private Vertex[] vertices;
     private int numVertices;
     private int maxNum;
 
-    public Graph(int maximum) {
+    public WeightedGraph(int maximum) {
         vertices = new Vertex[maximum];
         numVertices = 0;
         maxNum = maximum;
@@ -40,7 +43,7 @@ public class Graph {
         return true;
     }
 
-    private void addNodeHelper(String name) {
+    private void addNodeHelper(String name, int cost) {
         // grow vertices if array "vertices" is too small
         if(numVertices >= maxNum-1) {
             Vertex[] newVertices = new Vertex[maxNum+5];
@@ -62,7 +65,7 @@ public class Graph {
         }
 
         numVertices++;
-        vertices[j] = new Vertex(name);
+        vertices[j] = new Vertex(name, cost);
 
         // update edge endNode variables
         for(int n=0;n<numVertices;n++) {
